@@ -16,6 +16,13 @@ if (maybeTypeCheckBinary.error) {
 
 var LAST_CHECKER = null;
 
+var isTextEditorPlugin = false;
+if (process.argv && process.argv[4] === '--stdin' &&
+    process.argv[5] === '--stdin-filename'
+) {
+    isTextEditorPlugin = true;
+}
+
 module.exports = typeCheck;
 
 function typeCheck(context) {
@@ -57,6 +64,14 @@ function typeCheck(context) {
                 context.report({
                     loc: loc
                 }, error.message);
+
+                var fullMessage = bin.checker.prettyPrintErrorStatement(error);
+
+                if (isTextEditorPlugin) {
+                    console.log('');
+                    console.log(fullMessage);
+                    console.log('');
+                }
             }
 
             // console.log('node?', Object.keys(node));
