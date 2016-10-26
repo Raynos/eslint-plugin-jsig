@@ -1,5 +1,8 @@
 'use strict';
 
+var path = require('path');
+var fs = require('fs');
+
 var TypeCheckBinary = null;
 
 var maybeTypeCheckBinary = tryCatch(function tryIt() {
@@ -23,13 +26,29 @@ if (process.argv && process.argv[4] === '--stdin' &&
     isTextEditorPlugin = true;
 }
 
+var isTextR = /\<text\>$/;
+
 module.exports = typeCheck;
 
 function typeCheck(context) {
     return {
         'Program': function runTypeCheck(node) {
             var fileName = context.getFilename();
-            // console.log('?', fileName);
+            var tempFileName;
+
+            if (isTextR.test(fileName)) {
+                var dirname = path.dirname(fileName);
+                tempFileName = path.join(dirname, 'jsig-temp-file.js');
+
+                fs.writeFileSync(
+                    tempFileName,
+                    context.getSource(),
+                    'utf8'
+                );
+                fileName = tempFileName;
+                isTextEditorPlugin = true;
+            }
+            // console.log('?', Object.keys(context));
 
             var bin = new TypeCheckBinary({
                 _: [fileName]
@@ -72,6 +91,10 @@ function typeCheck(context) {
                     console.log(fullMessage);
                     console.log('');
                 }
+            }
+
+            if (tempFileName) {
+                fs.unlinkSync(tempFileName);
             }
 
             // console.log('node?', Object.keys(node));
