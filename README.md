@@ -1,36 +1,26 @@
 # eslint-plugin-jsig
 
-<!--
-    [![build status][build-png]][build]
-    [![Coverage Status][cover-png]][cover]
-    [![Davis Dependency status][dep-png]][dep]
--->
+A plugin that runs the [`jsig`][jsig] type checker as part of eslint.
+Works with eslint text editor plugins and the CLI.
 
-<!-- [![NPM][npm-png]][npm] -->
+# Example
 
-A eslint plugin for jsig typechecker
-
-## Example
-
-```js
-var eslintPluginJsig = require("eslint-plugin-jsig");
-
-// TODO. Show example
+```json
+{
+    "rules": {
+        "type-check": 2
+    },
+    "plugins": [
+        "jsig"
+    ]
+}
 ```
 
-## Docs
+To use this plugin you must have [`jsig`][jsig] installed as a peer dependency.
+The `eslint-plugin-jsig` module only works with `jsig@>=0.2.6`.
 
-### `var someValue = eslintPluginJsig(/*arguments*/)`
-
-<!--
-  This is a jsig notation of your interface.
-  https://github.com/Raynos/jsig
--->
-```ocaml
-eslint-plugin-jsig := (arg: Any) => void
-```
-
-// TODO. State what the module does.
+It's recommended that you configure your application with a `jsigconfig.json`
+file so that the eslint plugin can pick up your configuration.
 
 ## Installation
 
@@ -46,6 +36,7 @@ eslint-plugin-jsig := (arg: Any) => void
 
 ## MIT Licensed
 
+  [jsig]: https://github.com/Raynos/jsig
   [build-png]: https://secure.travis-ci.org/raynos/eslint-plugin-jsig.png
   [build]: https://travis-ci.org/raynos/eslint-plugin-jsig
   [cover-png]: https://coveralls.io/repos/raynos/eslint-plugin-jsig/badge.png
