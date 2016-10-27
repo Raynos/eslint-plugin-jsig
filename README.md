@@ -8,7 +8,7 @@ Works with eslint text editor plugins and the CLI.
 ```json
 {
     "rules": {
-        "type-check": 2
+        "jsig/type-check": 2
     },
     "plugins": [
         "jsig"
