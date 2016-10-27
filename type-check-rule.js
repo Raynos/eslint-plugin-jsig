@@ -12,7 +12,7 @@ var maybeTypeCheckBinary = tryCatch(function tryIt() {
 if (maybeTypeCheckBinary.error) {
     console.error('Could not require jsig.');
     console.error('Expected copy of jsig to be installed');
-    throw err;
+    throw maybeTypeCheckBinary.error;
 } else {
     TypeCheckBinary = maybeTypeCheckBinary.value;
 }
