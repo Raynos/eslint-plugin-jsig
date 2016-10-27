@@ -80,9 +80,13 @@ function typeCheck(context) {
                     }
                 };
 
-                context.report({
-                    loc: loc
-                }, error.message);
+                if (!isTextEditorPlugin ||
+                    error.fileName === fileName
+                ) {
+                    context.report({
+                        loc: loc
+                    }, error.message);
+                }
 
                 var fullMessage = bin.checker.prettyPrintErrorStatement(error);
 
